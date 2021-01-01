@@ -1,0 +1,107 @@
+#
+#
+# Macro with all default background sources, as determined from LUX screening:
+# http://teacher.pas.rochester.edu:8080/wiki/pub/Lux/BackgroundMc/LUX_bg_v7.pdf
+# 
+# 2013-05-14 DCM - Original version with all sources measured in-situ 
+# 		   or with positive measurements at SOLO
+#
+
+/tracking/verbose 0
+
+/run/initialize
+
+# Select all relevant geometry bits
+/LUXSim/detector/select 1_0Detector
+/LUXSim/detector/gridWires on
+/LUXSim/detector/cryoStand off
+/LUXSim/detector/muonVeto on
+
+# Set electric grid voltages
+/LUXSim/detector/topGridVoltage -1 kV
+/LUXSim/detector/anodeGridVoltage 3.5 kV
+/LUXSim/detector/gateGridVoltage -1.5 kV
+/LUXSim/detector/cathodeGridVoltage -10.0 kV
+/LUXSim/detector/bottomGridVoltage -2 kV
+/LUXSim/detector/printEFields
+
+# Update geometry
+/LUXSim/detector/update
+
+# Use NEST
+/LUXSim/physicsList/useOpticalProcesses 1
+/LUXSim/physicsList/s1gain 1
+/LUXSim/physicsList/s2gain 1
+/LUXSim/physicsList/driftElecAttenuation 0 nm
+
+# Set record levels for fast sims
+/LUXSim/detector/recordLevel LiquidXenon 2
+/LUXSim/detector/recordLevelOptPhot LiquidXenon 1
+/LUXSim/detector/recordLevelThermElec LiquidXenon 1
+
+# Catch photons / electrons immediately (fast sims)
+/LUXSim/materials/LXeAbsorption 0 nm
+/LUXSim/materials/GXeAbsorption 0 nm
+
+
+###########################################################################
+############################### BG sources ################################
+###########################################################################
+
+### Measured BG sources
+
+# Activated Xe (rates measured in Doc DB 46; extrapolated for Apr 1 - Jun 1, 
+# matching Run03 WIMP search run)
+/LUXSim/source/set LiquidXenon SingleDecay_127_54 0.14 Bq
+/LUXSim/source/set LiquidXenon Xe129m 0.0035 Bq
+/LUXSim/source/set LiquidXenon Xe131m 0.015 Bq
+/LUXSim/source/set LiquidXenon SingleDecay_133_54 0.00017 Bq
+
+# 222Rn (rates measured in Doc DB 46 and others; full report to be issued)
+/LUXSim/source/set LiquidXenon Rn222 0.015 Bq
+
+# PMTs + bases
+/LUXSim/source/set Bottom_PMT_Vacuum U238 0.67 Bq
+/LUXSim/source/set Bottom_PMT_Vacuum Th232 0.17 Bq
+/LUXSim/source/set Bottom_PMT_Vacuum SingleDecay_40_19 4.1 Bq
+/LUXSim/source/set Bottom_PMT_Vacuum SingleDecay_60_27 0.16 Bq
+/LUXSim/source/set Top_PMT_Vacuum U238 0.67 Bq
+/LUXSim/source/set Top_PMT_Vacuum Th232 0.17 Bq
+/LUXSim/source/set Top_PMT_Vacuum SingleDecay_40_19 4.1 Bq
+/LUXSim/source/set Top_PMT_Vacuum SingleDecay_60_27 0.16 Bq
+
+# 85Kr (3 ppt)
+/LUXSim/source/set LiquidXenon SingleDecay_85_36 0.00000043 Bq/kg
+
+# Cosmogenic activity measured for Ti, averaged for 8-11 months underground
+# (roughly Apr thru Jun, matching Run03 WIMP search run)
+/LUXSim/source/set XenonVessel SingleDecay_46_21 0.42 mBq/kg
+/LUXSim/source/set VacuumVessel SingleDecay_46_21 0.42 mBq/kg
+
+# Grid steel
+/LUXSim/source/set Wire U238 8.6 mBq/kg
+/LUXSim/source/set Wire Th232 2.2 mBq/kg
+/LUXSim/source/set Wire SingleDecay_60_27 19 mBq/kg
+/LUXSim/source/set GridFrame U238 8.6 mBq/kg
+/LUXSim/source/set GridFrame Th232 2.2 mBq/kg
+/LUXSim/source/set GridFrame SingleDecay_60_27 19 mBq/kg
+
+# Plastic thermal insulation + superinsulation around IC --
+# use lateral Cu shield as good approximation for this
+/LUXSim/source/set ThermalShield U238 0.94 Bq
+/LUXSim/source/set ThermalShield Th232 0.31 Bq
+/LUXSim/source/set ThermalShield SingleDecay_40_19 1.4 Bq
+
+
+### 90% upper limits from counting
+
+# COMING SOON
+
+###########################################################################
+
+
+# Generate events
+/LUXSim/beamOn 1000000
+
+# Exit
+exit

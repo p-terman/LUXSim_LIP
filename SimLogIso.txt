@@ -1,0 +1,6 @@
+0.01 iso, 500 events
+/global/project/projectdirs/lux/scratch/pterman/iso/monopole-0.01-6654724.bin
+0.02 iso, 500 events
+/global/project/projectdirs/lux/scratch/pterman/iso/monopole-0.02-6654725.bin
+0.03 iso, 500 events
+/global/project/projectdirs/lux/scratch/pterman/iso/monopole-0.03-6654726.bin

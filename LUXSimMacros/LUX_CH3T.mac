@@ -1,0 +1,37 @@
+# set tracking verbosity, 0 for most sims
+/tracking/verbose 0
+# always need this command
+/run/initialize
+# set how frequently the sims will update it's progress, i.e. every n events
+/LUXSim/io/updateFrequency 100
+# choose a directory to which to save the output
+/LUXSim/io/outputDir .
+# choose name of output files
+/LUXSim/io/outputName CH3T_
+# choose geometry, in this case the LUX detector
+/LUXSim/detector/select 1_0Detector
+# will the geoemtry include the grids?
+/LUXSim/detector/gridWires off
+# will the geomerty include the cryostand?
+/LUXSim/detector/cryoStand off
+# will the geometry include the muon veto?
+/LUXSim/detector/muonVeto off
+# always need this command after all geometry related commands
+/LUXSim/detector/update
+# record photoelectrons in the PMTs
+/LUXSim/detector/recordLevelThermElec PMT_PhotoCathode 3
+# record energy deposits in the volume "LiquidXenon" (i.e., in the active xenon)
+/LUXSim/detector/recordLevel LiquidXenon 2
+# set source and where to place it
+/LUXSim/source/set LiquidXenon Tritium 1 mBq
+# set useOpticalProcesses to true to use NEST and simulate photoelectrons hits
+# set to false to look at only at energy deposits
+/LUXSim/physicsList/useOpticalProcesses true
+# set S1 photon detection efficiency
+/LUXSim/physicsList/s1gain .123
+# set electron extraction efficiency
+/LUXSim/physicsList/s2gain .454
+# set number of incident particles to sim
+/LUXSim/beamOn 100
+# exit LUXSim
+exit

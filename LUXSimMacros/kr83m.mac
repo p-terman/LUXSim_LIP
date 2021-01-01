@@ -1,0 +1,58 @@
+################################################################################
+# example macro for the LUXSim package
+#
+#
+# 20140916 - Created by Claudio Pascoal Silva based in a file from Kevin O'Sullivan
+#
+################################################################################
+
+
+/tracking/verbose 0
+
+/run/initialize
+/LUXSim/io/updateFrequency 1000
+/LUXSim/io/outputDir /media/data1/claudio/LUXSims/Tabela_S2eS1DevemEstarCorrectos
+/LUXSim/io/outputName 83mKr_V28_1stTry_Teste
+/LUXSim/detector/select 1_0Detector
+/LUXSim/detector/gridWires off
+/LUXSim/detector/cryoStand off
+/LUXSim/detector/muonVeto off
+/LUXSim/detector/topGridVoltage -1 kV
+/LUXSim/detector/anodeGridVoltage 3.5 kV
+/LUXSim/detector/gateGridVoltage -1.5 kV
+/LUXSim/detector/cathodeGridVoltage -10 kV
+/LUXSim/detector/bottomGridVoltage -2 kV
+/LUXSim/detector/printEFields
+/LUXSim/detector/update
+/LUXSim/detector/recordLevelThermElec PMT_PhotoCathode 3
+/LUXSim/detector/recordLevel LiquidXenon 2
+/LUXSim/source/set LiquidXenon Kr83m 1 mBq
+/LUXSim/physicsList/useOpticalProcesses true
+/LUXSim/physicsList/s1gain .14
+/LUXSim/physicsList/s2gain .6
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+/LUXSim/beamOn 500
+exit
+

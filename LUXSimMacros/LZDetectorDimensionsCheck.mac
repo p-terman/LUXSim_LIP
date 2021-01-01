@@ -1,0 +1,98 @@
+#macro for checking dimensions of LZDetector
+
+/run/verbose 2
+/control/verbose 1
+/tracking/verbose 1
+/event/verbose 1
+/grdm/verbose 0
+
+/vis/open VRML2FILE
+
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate
+/tracking/storeTrajectory 1
+#/vis/viewer/set/viewpointVector 0 0 0
+#/vis/viewer/set/upVector 0 0 1
+
+#/vis/viewer/set/sectionPlane on 0 0 0 cm 1 0 0
+
+/run/initialize
+
+/LUXSim/detector/select LZDetector
+/LUXSim/detector/gridWires off
+/LUXSim/detector/update
+
+/vis/viewer/set/style          s
+/vis/viewer/zoom               1.5
+
+/vis/drawVolume PMTCablingConduit
+/vis/scene/add/volume ThermosyphonConduit
+#/vis/scene/add/volume OuterTitaniumVessel
+
+#Shoot geantinos
+/gps/particle geantino
+/gps/energy 3 eV
+
+#Vertically, through center from above
+/gps/position 0 0 5 m
+/gps/direction 0 0 -1
+/LUXSim/beamOn 1
+
+#Vertically, offset from center to middle of LS tanks from above
+/gps/position 0.95 0.95 5 m
+/gps/direction 0 0 -1
+/LUXSim/beamOn 1
+
+#Radially outward from center to go through LS tanks
+/gps/position 0 0 0 m
+/gps/direction 1 1 0
+/LUXSim/beamOn 1
+
+#Vertically from above through pmt cabling conduit/water tank joint
+/gps/position 1936.13 0 10000 mm
+/gps/direction 0 0 -1
+/LUXSim/beamOn 1
+
+#Vertically from above through pmt cabling conduit/outer cryostat joint
+/gps/position 500.126 0 10000 mm
+/gps/direction 0 0 -1
+/LUXSim/beamOn 1
+
+#Vertically from above through thermosyphon conduit/water tank joint
+/gps/position -2248.36 0 10000 mm
+/gps/direction 0 0 -1
+/LUXSim/beamOn 1
+
+#Vertically from above through thermosyphon conduit/outer cryostat joint
+/gps/position -571.5 0 10000 mm
+/gps/direction 0 0 -1
+/LUXSim/beamOn 1
+
+
+#/gps/position 586 586 2000 mm
+#/gps/position 0.1 0.0 -1.290 m #bottom tank
+#/gps/position 0.0 0.1  2.695 m #top tank
+#/gps/direction 0 0 -1
+
+#/gps/particle geantino
+#/gps/energy 3 eV
+#/gps/position 0.956 0.956 4 m
+#/gps/position 0.956 0.956 0.525 m
+
+#pmt conduit
+#/gps/position 500.126 0 10000 mm
+#/gps/position 1936.13 0 10000 mm
+#/gps/position 0 0 3050 mm
+
+#thermo conduit
+#/gps/position -571.5 0 10000 mm
+#/gps/position -2248.36 0 10000 mm
+
+#neutron tube
+#/gps/position 0 2000 10000 mm
+#/gps/position 0 10000 1130 mm
+
+#/gps/position -10000 0 2860 mm
+
+#/gps/position 0 0 2400 mm
+#/gps/direction 0 0 -1

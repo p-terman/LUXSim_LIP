@@ -1,0 +1,97 @@
+################################################################################
+# vis.mac
+# This file can be used as an example of how to create visualizations from
+# GEANT4. Right now only the most popular (OGLIX, DAWN, and VRML) are used, but
+# other visualization systems (e.g., raytracing) may be available.
+#
+# Change log:
+# 18 March 2009 - Initial submission, Kareem Kazkaz
+# 3 April 2009 - Added detetorSystem and 1_0Detector switches to the list
+#				 (Melinda)
+# 30 April 2009 - Changed muonVeto command to place just the waterTank
+#		  added emptyCryostat option
+#				 (Melinda)
+# 23 Aug 2011 - Added the GNARRLIDetector line (Tenzing)
+# 25 Aug 2011 - Added the LithiumTarget line for neutron generator (Mike)
+# 06 Feb 2012 - Added color codings for particles, including igoring 
+#				neutrinos (Kareem)
+################################################################################
+
+/run/verbose 0
+/control/verbose 0
+/tracking/verbose 0
+/grdm/verbose 0
+
+#	Lines for visualization support
+#	Any visualizatio system can be opened, but just the OGLIX and VRML systems
+#	are present.
+#/vis/open HepRepFile
+/vis/open VRML2FILE
+#/vis/open OGLIX
+#/vis/open DAWNFILE
+/vis/drawVolume
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate
+/tracking/storeTrajectory 1
+/vis/viewer/set/viewpointVector 1 0 0
+#/vis/viewer/zoom 2 
+
+#	Set up visualization so that we don't cloud the issue with neutrinos
+/vis/filtering/trajectories/create/particleFilter
+/vis/filtering/trajectories/particleFilter-0/add nu_e
+/vis/filtering/trajectories/particleFilter-0/add nu_mu
+/vis/filtering/trajectories/particleFilter-0/add nu_tau
+/vis/filtering/trajectories/particleFilter-0/add anti_nu_e
+/vis/filtering/trajectories/particleFilter-0/add anti_nu_mu
+/vis/filtering/trajectories/particleFilter-0/add anti_nu_tau
+/vis/filtering/trajectories/particleFilter-0/invert true
+
+# Color keys: white, gray, grey, black, red, green, blue, cyan, magenta, yellow
+/vis/modeling/trajectories/create/drawByParticleID
+/vis/modeling/trajectories/drawByParticleID-0/set e+ blue
+/vis/modeling/trajectories/drawByParticleID-0/set e- magenta
+/vis/modeling/trajectories/drawByParticleID-0/set proton cyan
+/vis/modeling/trajectories/drawByParticleID-0/set neutron grey
+/vis/modeling/trajectories/drawByParticleID-0/set gamma green
+/vis/modeling/trajectories/drawByParticleID-0/set opticalPhoton yellow
+
+#	This next set of lines is to, as it appears, initialize the simulation
+/run/initialize
+
+#	Next are the LUXSim-specific commands
+
+#	Select the kind of detector to use
+
+/LUXSim/detector/muonVeto off
+#/LUXSim/detector/select 0_1Detector
+#/LUXSim/detector/select 1_0Detector
+#/LUXSim/detector/select emptyCryostat
+#/LUXSim/detector/select simpleExample
+#/LUXSim/detector/select complexExample
+/LUXSim/detector/select GNARRLIDetector
+
+#	Update geometry
+/LUXSim/detector/update
+
+#/LUXSim/detector/recordLevel Top_PMT_Window 1
+#/LUXSim/detector/recordLevel Bottom_PMT_Window 1
+#/LUXSim/detector/recordLevel water_PMT_Window 1
+#/LUXSim/detector/recordLevel LiquidXeTarget 1
+#/LUXSim/detector/recordLevel TopPMTHolder 1
+#/LUXSim/detector/recordLevel BottomPMTHolder 1
+#/vis/viewer/refresh
+
+#	Use this line instead of "/run/beamOn" to allow for variations in source
+#	activity due to decay chains
+#/gps/particle neutron
+#/gps/energy 1 MeV
+#/gps/position 0 0 0 cm
+#/gps/direction 0 0 -1
+#/gps/ang/type iso
+
+/LUXSim/source/set LithiumTarget pLithium 10000 Bq
+/LUXSim/beamOn 100
+#/vis/viewer/refresh
+
+#/LUXSim/beamOn 1
+

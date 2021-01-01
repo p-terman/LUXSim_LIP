@@ -1,0 +1,124 @@
+################################################################################
+# Modified example.mac to illustrate generators for LUXSim
+#
+# Change log:
+#  18-Mar-09 - (example.mac) Initial submission (Kareem)
+#  02-Apr-10 - Added to Macro selection (Nick)
+#  18-Jun-12 - Added the Wimp generator to the example sources. (Daniel)
+#
+################################################################################
+
+
+# from David Malling (Feb 24, 2010)
+#  User must now manually call /LUXSim/detector/update in order to create the 
+#    geometry 
+#
+#  For the meantime, this means that one should issue commands in the following 
+#     order:
+#  - Geometry settings (/LUXSim/detector/select 1_0Detector, 
+#                       /LUXSim/detector/muonVeto on, etc.)
+#  - Geometry creation (/LUXSim/detector/update)
+#  - Record level settings
+
+/run/verbose 0
+/control/verbose 0
+/tracking/verbose 0
+/grdm/verbose 0
+/process/verbose 0
+
+/run/initialize
+/LUXSim/io/outputDir ./
+/LUXSim/io/outputName singleParticle
+
+#	Select the kind of detector to use
+#/LUXSim/detector/select simpleExample
+#/LUXSim/detector/select complexExample
+#/LUXSim/detector/select emptyCryostat
+/LUXSim/detector/select 1_0Detector
+
+#/LUXSim/detector/muonVeto on
+
+/LUXSim/detector/update
+
+#/LUXSim/detector/recordLevel PMT_Window 1
+/LUXSim/detector/recordLevel LiquidXenon 2
+
+#/LUXSim/detector/recordLevelOptPhot LiquidXenon 2
+#/LUXSim/detector/recordLevelOptPhot PMT_Window 3
+
+
+#	This next set of commands sets the activity of the various components. As
+#	with the record level commands, you can set activities of many components
+#	with a single command, and then you can fine-tune the activity of individual
+#	components
+
+#   Component names: Twiki->/Lux/LUXSimGeometryDocumentation
+#   Sources names : Twiki->/Lux/LUXSimGeneratorDocumentation
+#   Activity Units: Bq,Ci with SI prefixes for entire component mass
+#                    or Bq/kg, Bq/g, mBq/mg, etc for activity/unit mass
+
+#    Example source implementation
+#
+#/LUXSim/source/set Top_PMT_Window AmBe 1 mBq
+#/LUXSim/source/set PMT_Window CfFission 1 mBq
+
+#    Example of a Wimp source
+#
+#  Mass units do not use c^2:
+#/LUXSim/source/set LiquidXenon Wimp 1 Bq 100 GeV
+
+#    SingleDecay_A_Z for a single nucleus decay 
+#       (19K40, 55Cs137, 6Ba133, 27Co57 are below)
+#
+#/LUXSim/source/set PMT_Window SingleDecay_40_19 10 Bq
+#/LUXSim/source/set PMT_Window SingleDecay_137_55 1 Bq
+#/LUXSim/source/set PMT_Window SingleDecay_133_56 1 Bq
+
+#    Example of source activity per mass with various units
+#
+#/LUXSim/source/set Top_PMT_Window_20 SingleDecay_57_27 1 Bq
+#/LUXSim/source/set Top_PMT_Window_22 SingleDecay_57_27 2 mBq/kg
+#/LUXSim/source/set Top_PMT_Window_32 SingleDecay_57_27 3 uBq/g
+#/LUXSim/source/set Top_PMT_Window_20 SingleDecay_57_27 1 Bq
+
+#   Scintillation Photons as a primary particle
+#/LUXSim/source/set LiquidXenon ScintPhotons 1 Bq
+
+#    Decay Chains
+#
+#  Analytic and Stochastic Decay Chain Generator with timing
+#    and position correlation.
+#    For U238 and Th232, give a source age in s,d,yr,Myr,Gyr.
+#  Secular equilibrium achieved in around 
+#    60 years in Th232 and 2.5e6 years in U238
+#/LUXSim/source/set LiquidXenon DecayChain_Th232 5 mBq 60    yr
+#/LUXSim/source/set PMT_Window  DecayChain_U238  1  Bq 2.5e6 yr
+# 
+#   this will print z,a,time,position to term if set to true
+#/LUXSim/source/print true
+
+#   These original decay chain do not have time/position 
+#   correlation and assume perfect secular equilibrium
+#/LUXSim/source/set BottomPMTHolder Th232 1 Bq
+#/LUXSim/source/set Top_PMT_Window_11 Rn222 100 mBq
+#/LUXSim/source/set Top_PMT_Window_11 U238 1 Ci/mg
+
+#   The SingleParticle generator includes all /gps/particles
+#   except ions. This is quick way to generate sources in a volue
+#   As shown below set the name of the particle and energy with units
+#/LUXSim/source/set LiquidXenon SingleParticle_e-      1 Bq 6*keV
+#/LUXSim/source/set LiquidXenon SingleParticle_gamma   1 Bq 1*MeV
+#/LUXSim/source/set LiquidXenon SingleParticle_alpha   1 Bq 0.6*GeV 
+#/LUXSim/source/set LiquidXenon SingleParticle_neutron 1 Bq 10*eV
+
+
+
+
+
+
+
+
+/LUXSim/physicsList/useOpticalProcesses false
+
+/LUXSim/beamOn 100
+exit

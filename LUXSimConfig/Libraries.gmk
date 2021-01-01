@@ -1,0 +1,29 @@
+################################################################################
+# Libraries.gmk
+# Compilation support for LUXSim. This is the common set of commands for all
+# subsystem libraries.
+#
+# Change log:
+# 18 March 2009 - Initial submission (Kareem)
+# 09 Nov 2012 - Removed -O2 flag, as it is set elsewhere in the configuration
+#				(Kareem)
+#
+################################################################################
+
+.PHONY: all lib clean
+all: lib
+
+include ../LUXSimConfig/BuildDirs.gmk
+
+include $(G4INSTALL)/config/architecture.gmk
+include $(G4INSTALL)/config/common.gmk
+
+include ../LUXSimConfig/ExtraDeps.gmk
+include ../LUXSimConfig/GEANT4.gmk
+
+# Add the sub-directory include directories to the compilation list
+CPPFLAGS += $(addprefix -I../, $(addsuffix /include, $(SUBDIRS)))
+
+clean::
+	cd $(G4WORKDIR)
+	rm -rf bin tmp lib

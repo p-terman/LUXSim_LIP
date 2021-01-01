@@ -1,0 +1,51 @@
+################################################################################
+# Example macro for running the MUSUN generator (David Woodward)
+#
+# Change log:
+# 11 May 2015 - Initial submission (David W)
+# 10 December 2015 - Modified macro to use with LUX geometry (Doug T)
+################################################################################
+
+
+#    Set the verbosity levels
+/run/verbose 0
+/control/verbose 0
+/tracking/verbose 0
+/grdm/verbose 0
+/process/verbose 0
+
+#    Select an empty LUX detector, enable the veto and cryostand, and turn on the Davis cavern rock. 
+/LUXSim/detector/select emptyCryostat
+/LUXSim/detector/cavRock on
+/LUXSim/detector/cryoStand on
+/LUXSim/detector/muonVeto on
+/LUXSim/detector/update
+
+#    Initialise the run
+/run/initialize
+#/LUXSim/io/outputDir /home/
+/LUXSim/io/outputName MUSUN_Example_Test_
+/LUXSim/randomSeed 1001
+
+
+#    Set your record levels 
+#/LUXSim/detector/recordLevel expHall 2
+/LUXSim/detector/recordLevel Water_PMT_PhotoCathode 4
+/LUXSim/detector/recordLevel WaterPMTHolder 2
+
+
+#    Select the muon generator and enable shielding physics
+#    Usage: /LUXSim/source/set MUSUN
+/LUXSim/source/set MUSUN
+
+
+/LUXSim/physicsList/useOpticalProcesses true
+
+#    Fire the beam 
+/LUXSim/beamOn 1
+exit
+
+#    Optional: if you have the MUSUN set command at the end of the macro (after
+#       the exit command) you can enable the shielding physics list for use with 
+#       other particle generators. 
+/LUXSim/source/set MUSUN

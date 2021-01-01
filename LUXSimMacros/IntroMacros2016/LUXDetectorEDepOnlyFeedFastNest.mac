@@ -1,0 +1,29 @@
+
+/run/initialize
+
+/LUXSim/io/alwaysRecordPrimary true
+/LUXSim/io/updateFrequency 10000
+/LUXSim/io/outputDir .
+/LUXSim/io/outputName EnergyDeposition_
+
+/LUXSim/detector/select 1_0Detector
+/LUXSim/detector/gridWires off
+/LUXSim/detector/cryoStand on
+/LUXSim/detector/muonVeto on
+
+/LUXSim/detector/update
+
+/LUXSim/detector/recordLevel LiquidXenon 3
+
+#/LUXSim/source/set LiquidXenon SingleParticle_e- 1 Bq 10*keV
+#/LUXSim/source/set LiquidXenon SingleParticle_gamma 1 Bq 10*keV
+/gps/ion 54 131 #it's Xe-131. For electron it's /gps/particle e- e.g.
+/gps/energy 10 keV
+/gps/position 0 0 30 cm
+#this is approximate center. See ElectronCollection for whole volume
+/gps/ang/type iso
+
+/LUXSim/physicsList/useOpticalProcesses false
+
+/LUXSim/beamOn 1000000
+exit

@@ -1,0 +1,42 @@
+
+/tracking/verbose 0
+/run/initialize
+
+/LUXSim/io/alwaysRecordPrimary true
+/LUXSim/io/updateFrequency 1
+/LUXSim/io/outputDir .
+/LUXSim/io/outputName FullSlowSimulation_
+
+/LUXSim/detector/select LZDetector
+/LUXSim/detector/gridWires on
+/LUXSim/detector/cryoStand on
+/LUXSim/detector/muonVeto on
+
+/LUXSim/detector/printEFields
+/LUXSim/detector/update
+
+/LUXSim/materials/LXeTeflonRefl 0.95
+/LUXSim/materials/LXeAbsorption 70 m
+/LUXSim/materials/LXeSteelRefl 0.05
+/LUXSim/materials/GXeTeflonRefl 0.85
+/LUXSim/materials/GXeSteelRefl 0.20
+/LUXSim/materials/GXeAbsorption 3 m
+/LUXSim/materials/AlUnoxidizedQuartzRefl 1.0
+#/LUXSim/materials/GXeRayleigh 500 km
+#/LUXSim/materials/LXeRayleigh 36 cm
+
+/LUXSim/detector/recordLevelOptPhot PMT_Photocathode 3
+
+#/LUXSim/source/set LiquidXenonTarget SingleParticle_e- 1 Bq 10*keV
+#/LUXSim/source/set LiquidXenonTarget SingleParticle_gamma 1 Bq 10*keV
+/gps/ion 54 131 #it's Xe-131. For electron it's /gps/particle e- e.g.
+/gps/energy 10 keV
+/gps/position 0 0 75 cm
+#this is approximate center. See ElectronCollection for whole volume
+/gps/ang/type iso
+
+/LUXSim/physicsList/useOpticalProcesses true
+/LUXSim/physicsList/driftElecAttenuation 1.5 m
+
+/LUXSim/beamOn 10
+exit

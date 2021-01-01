@@ -1,0 +1,39 @@
+/tracking/verbose 0
+/monopole/setup 0 -0.2 105.66 MeV
+/run/initialize
+/LUXSim/io/outputDir /global/project/projectdirs/lux/scratch/pterman/0.2/
+/LUXSim/io/outputName  monopole
+/LUXSim/detector/select 1_0Detector
+/LUXSim/io/updateFrequency 1
+/LUXSim/detector/gridWires on
+/LUXSim/detector/cryoStand on
+/LUXSim/detector/muonVeto on
+/LUXSim/detector/topGridVoltage -1 kV
+/LUXSim/detector/anodeGridVoltage 3.5 kV
+/LUXSim/detector/gateGridVoltage -1.5 kV
+/LUXSim/detector/cathodeGridVoltage -10 kV
+/LUXSim/detector/bottomGridVoltage -2 kV
+/LUXSim/detector/printEFields
+/LUXSim/detector/LUXFastSimSkewGaussianS2 true
+#/run/initialize
+/LUXSim/detector/update
+/LUXSim/materials/LXeAbsorption 0 m
+/LUXSim/materials/GXeAbsorption 0 m
+/LUXSim/detector/recordLevel LiquidXenon 2
+/LUXSim/detector/recordLevelThermElec PMT_PhotoCathode 3
+#/LUXSim/materials/LXeAbsorption 0.1 m
+#/LUXSim/materials/LXeTeflonRefl 1
+/gps/particle monopole
+/gps/energy 10  GeV
+
+
+/gps/position 0 0 1 m
+/gps/direction 0 0 -1
+
+
+/LUXSim/physicsList/useOpticalProcesses false
+#/LUXSim/physicsList/s1gain 0.117
+#/LUXSim/physicsList/s2gain 0.489
+#/LUXSim/physicsList/driftElecAttenuation 1 m
+/LUXSim/beamOn 500
+exit

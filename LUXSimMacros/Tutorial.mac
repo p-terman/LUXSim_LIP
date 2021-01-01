@@ -1,0 +1,103 @@
+################################################################################
+# Tutorial.mac
+# This file can be used with the tutorial on the Twiki to walk new users through
+# a set of commands. All of these commands are written on the Twiki and should 
+# be typed by hand.
+#
+# Change log:
+# 27 March 2010 - Initial submission, Michael Woods
+# 27 March 2010 - Added tips for the "Write your own macro" section.
+################################################################################
+
+# Select the 1.0 detector
+/LUXSim/detector/select 1_0Detector
+/LUXSim/detector/update
+
+# Necessary to run the simulation
+/run/initialize
+
+# Turn on OpenGL visualization, draw the detector, and zoom in
+/vis/open OGLIX
+/vis/drawVolume
+/vis/viewer/zoom 2
+
+# Alter the view
+/vis/viewer/set/viewpointVector 1 0 0
+/vis/viewer/set/upVector 0 0 1
+
+# Can change the viewpoint
+/vis/viewer/set/viewpointVector 1 0 0.4
+
+# Change the viewpoint back
+/vis/viewer/set/viewpointVector 1 0 0
+
+# Set a simple event
+/gps/particle e-
+/gps/energy 1 keV
+/gps/position 0 0 -1 cm
+/gps/ang/type iso
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate
+/tracking/storeTrajectory 1
+
+# Turn on scintillation
+/LUXSim/physicsList/useOpticalProcesses 1
+
+# Run a single electron
+/LUXSim/beamOn 1
+
+# Can change the viewpoint again
+/vis/viewer/set/viewpointVector 1 0 0.4
+# ...and back again
+/vis/viewer/set/viewpointVector 1 0 0
+
+# Change the energy of the electron and re-run
+/gps/energy 30 keV
+/LUXSim/beamOn 1
+
+# End the simulation. If run in macro mode, this line MUST be included,
+# otherwise the executable won't ever exit.
+exit
+
+
+# Here are some tips to get the tasks on the LUXSim Boot Camp to work.
+# Task 1
+#/LUXSim/detector/select 0_1Detector
+#/LUXSim/detector/update
+#
+# Task 2
+#/LUXSim/detector/select 1_0Detector
+#/LUXSim/detector/muonVeto on
+#/LUXSim/detector/update
+#
+# Task 3
+#/LUXSim/detector/cryoStand on
+#/LUXSim/detector/update
+#
+# From this point on, various previous /LUXSim/beamOn commands need to be
+# commented out or there will be a segmentation fault.
+#
+# Task 4. As a warning on this one, you may have to run "/LUXSim/beamOn 1" a
+# bunch of times before you get a gamma to interact in the xenon to give you
+# scintillation light.
+#/LUXSim/detector/cryoStand off
+#/LUXSim/detector/muonVeto off
+#/LUXSim/detector/update
+#/LUXSim/source/set Top_PMT_Window_31 SingleDecay_137_55 1 Bq
+#/LUXSim/beamOn 1
+#
+# Task 5
+#/LUXSim/physicsList/useOpticalProcesses 0
+#/LUXSim/beamOn 100
+#
+# Task 6
+#/LUXSim/source/set Top_PMT_Window SingleDecay_137_55 1 Bq
+#/LUXSim/beamOn 100
+#
+# Task 7
+#/LUXSim/source/set Top_PMT_Window_01 SingleDecay_40_19 1 kBq
+#/LUXSim/beamOn 500
+#
+# Task 8
+#/LUXSim/detector/recordLevel LiquidXenon 1
+#/LUXSim/beamOn 100000

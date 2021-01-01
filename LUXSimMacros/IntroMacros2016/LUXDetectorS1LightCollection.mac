@@ -1,0 +1,31 @@
+
+/run/initialize
+
+/LUXSim/io/alwaysRecordPrimary true
+/LUXSim/io/updateFrequency 10000
+/LUXSim/io/outputDir .
+/LUXSim/io/outputName LiquidPhotonBomb_
+
+/LUXSim/detector/select 1_0Detector
+/LUXSim/detector/gridWires on
+/LUXSim/detector/cryoStand off
+/LUXSim/detector/muonVeto off
+
+/LUXSim/detector/update
+
+/LUXSim/materials/LXeTeflonRefl 0.97
+/LUXSim/materials/LXeAbsorption 30 m
+/LUXSim/materials/LXeSteelRefl 0.05
+/LUXSim/materials/GXeTeflonRefl 0.75
+/LUXSim/materials/GXeSteelRefl 0.20
+/LUXSim/materials/GXeAbsorption 6 m
+/LUXSim/materials/AlUnoxidizedQuartzRefl 1.0
+#/LUXSim/materials/GXeRayleigh 500 km
+#/LUXSim/materials/LXeRayleigh 36 cm
+
+/LUXSim/detector/recordLevelThermElec PMT_PhotoCathode 3
+
+/LUXSim/source/set LiquidXenon ScintPhotons 1 Bq
+
+/LUXSim/beamOn 1000000
+exit

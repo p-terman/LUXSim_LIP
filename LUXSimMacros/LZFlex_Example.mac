@@ -1,0 +1,63 @@
+################################################################################
+#
+# Example macro for running the LZFlex detector
+#
+# Change log:
+#	24 Feb 2012 - Initial submission (Kareem)
+#	26 Feb 2012 - Changed the example scintillator thickness to 75 cm. Set
+#				  optical photon record level examples for the skin PMTs.
+#				  (Kareem)
+#	1  Mar 2012 - Changed the example source volume to "PMTWindow" instead of
+#				  "PMTPhotocathode". Also updated the optical photon record
+#				  level lines to include "Annular", which is what the actual
+#				  volume names now contain so that the skin PMT names are not
+#				  degenerate with the inner PMT names. (Kareem)
+#
+################################################################################
+
+/run/verbose 0
+/control/verbose 0
+/tracking/verbose 0
+/grdm/verbose 0
+
+/vis/open OGL
+#/vis/open HepRepFile
+#/vis/open VRML2FILE
+#/vis/open OGLIX
+/vis/drawVolume
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate
+/tracking/storeTrajectory 1
+/vis/viewer/set/viewpointVector 1 0 0
+/vis/viewer/set/upVector 0 0 1
+
+/run/initialize
+
+/LUXSim/detector/muonVeto on
+/LUXSim/detector/cryoStand off
+
+/LUXSim/detector/select LZFlex
+/LUXSim/detector/LZFlexMass 10000 kg
+/LUXSim/detector/LZFlexXeSkin 4 cm
+/LUXSim/detector/LZFlexTeflonThickness 3 cm
+/LUXSim/detector/LZFlexScintThickness 75 cm
+
+/LUXSim/physicsList/useOpticalProcesses false
+/LUXSim/detector/update
+
+/LUXSim/detector/recordLevel LiquidXeTarget 2
+/LUXSim/detector/recordLevel LiquidXeSkin 2
+/LUXSim/detector/recordLevel Scintillator 2
+
+/LUXSim/detector/recordLevelOptPhot BottomPMTPhotocathode 2
+/LUXSim/detector/recordLevelOptPhot TopPMTPhotocathode 2
+/LUXSim/detector/recordLevelOptPhot BottomSkinPMTAnnularPhotocathode 1
+/LUXSim/detector/recordLevelOptPhot TopSkinPMTAnnularPhotocathode 1
+
+/LUXSim/source/set PMTWindow SingleDecay_40_19 1 mBq
+/LUXSim/source/set PMTWindow Th232 1 mBq
+/LUXSim/source/set PMTWindow U238 1 mBq
+
+/vis/viewer/refresh
+
+/LUXSim/beamOn 1000

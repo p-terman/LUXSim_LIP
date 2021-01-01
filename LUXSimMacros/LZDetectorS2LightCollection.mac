@@ -1,0 +1,41 @@
+
+/run/initialize
+
+/LUXSim/io/alwaysRecordPrimary true
+/LUXSim/io/updateFrequency 10000
+/LUXSim/io/outputDir .
+/LUXSim/io/outputName GasPhotonBomb_
+
+/LUXSim/detector/select LZDetector
+/LUXSim/detector/gridWires on
+/LUXSim/detector/cryoStand off
+/LUXSim/detector/muonVeto off
+
+/LUXSim/detector/update
+
+/LUXSim/materials/LXeTeflonRefl 0.95
+/LUXSim/materials/LXeAbsorption 70 m
+/LUXSim/materials/LXeSteelRefl 0.05
+/LUXSim/materials/GXeTeflonRefl 0.85
+/LUXSim/materials/GXeSteelRefl 0.20
+/LUXSim/materials/GXeAbsorption 3 m
+/LUXSim/materials/AlUnoxidizedQuartzRefl 1.0
+#/LUXSim/materials/GXeRayleigh 500 km
+#/LUXSim/materials/LXeRayleigh 36 cm
+
+/LUXSim/detector/recordLevelOptPhot PMT_Photocathode 3
+
+/gps/particle opticalphoton
+/gps/ene/type Gauss
+/gps/ene/mono 6.97 eV
+/gps/ene/sigma 0.23 eV
+/gps/pos/type Volume
+/gps/pos/shape Cylinder
+/gps/pos/centre 0 0 1483.484 mm
+/gps/pos/radius 75 cm
+/gps/pos/halfz 2.5 mm
+/gps/pos/confine InnerGaseousXenon
+/gps/ang/type iso
+
+/LUXSim/beamOn 1000000
+exit

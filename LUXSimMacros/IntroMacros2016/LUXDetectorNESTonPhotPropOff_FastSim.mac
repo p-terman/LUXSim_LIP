@@ -1,0 +1,53 @@
+
+/run/verbose 0
+/control/verbose 0
+/tracking/verbose 0
+/grdm/verbose 0
+/process/verbose 0
+
+/run/initialize
+
+/LUXSim/io/alwaysRecordPrimary false
+/LUXSim/io/updateFrequency 10000
+/LUXSim/io/outputDir .
+/LUXSim/io/outputName FastLUXSim
+/LUXSim/randomSeed -1
+
+/LUXSim/detector/select 1_0Detector
+/LUXSim/detector/gridWires off
+/LUXSim/detector/cryoStand on
+/LUXSim/detector/muonVeto on
+
+/LUXSim/detector/topGridVoltage -1 kV
+/LUXSim/detector/anodeGridVoltage 3.5 kV
+/LUXSim/detector/gateGridVoltage -1.5 kV
+/LUXSim/detector/cathodeGridVoltage -10 kV
+/LUXSim/detector/bottomGridVoltage -2 kV
+/LUXSim/detector/printEFields
+
+/LUXSim/detector/LUXFastSimSkewGaussianS2 true
+/LUXSim/detector/update
+
+/LUXSim/materials/LXeAbsorption 0 m
+/LUXSim/materials/GXeAbsorption 0 m
+
+/LUXSim/detector/recordLevelThermElec PMT_PhotoCathode 3
+
+#/LUXSim/source/set LiquidXenon SingleParticle_e- 1 Bq 10*keV
+#/LUXSim/source/set LiquidXenon SingleParticle_gamma 1 Bq 10*keV
+/gps/ion 54 131 #it's Xe-131. For electron it's /gps/particle e- e.g.
+/gps/energy 10 keV
+/gps/position 0 0 30 cm
+#this is approximate center. See ElectronCollection for whole volume
+/gps/ang/type iso
+
+/LUXSim/physicsList/useOpticalProcesses true
+/LUXSim/physicsList/s1gain 0.117 #g1
+/LUXSim/physicsList/s2gain 0.489 #ee
+/LUXSim/physicsList/driftElecAttenuation 1.2 m
+
+#Hard-coded: Change the following for SE mean, width, skew:
+#initSkewGaussianCDF(21.17, 5.38, 0.34) in the script LUXSimFastSim.cc
+
+/LUXSim/beamOn 1000000
+exit

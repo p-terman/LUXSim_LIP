@@ -1,0 +1,40 @@
+# set tracking verbosity, 0 for most sims
+/tracking/verbose 0
+# always need this command
+/run/initialize
+# set how frequently the sims will update it's progress, i.e. every n events
+/LUXSim/io/updateFrequency 100
+# choose a directory to which to save the output
+/LUXSim/io/outputDir .
+# choose name of output files
+/LUXSim/io/outputName DD_
+# choose geometry, in this case the LUX detector
+/LUXSim/detector/select 1_0Detector
+# will the geoemtry include the grids?
+/LUXSim/detector/gridWires off
+# will the geomerty include the cryostand?
+/LUXSim/detector/cryoStand on
+# will the geometry include the muon veto?
+/LUXSim/detector/muonVeto on
+# include the DD neutron collimator in the geometry
+/LUXSim/detector/LUXNeutronCollimator true
+# set neutron collimator height
+/LUXSim/detector/LUXNeutronCollimatorHeight 25. cm
+# should the DD beam be a pencil beam (1 mm diameter) or not (7 cm diameter)?
+/LUXSim/detector/LUXDDPencilBeam true
+# always need this command after all geometry related commands
+/LUXSim/detector/update
+# record photoelectrons in the PMTs
+/LUXSim/detector/recordLevelThermElec PMT_PhotoCathode 3
+# record energy deposits in the volume "LiquidXenon" (i.e., in the active xenon)
+/LUXSim/detector/recordLevel LiquidXenon 2
+# set source and where to place it
+# in this case a DD beam originating in the volume "DDNeutronSource"
+/LUXSim/source/set DDNeutronSource DD 1 mBq
+# set useOpticalProcesses to true to use NEST and simulate photoelectrons hits
+# set to false to look at only at energy deposits
+/LUXSim/physicsList/useOpticalProcesses false
+# set number of incident particles to sim
+/LUXSim/beamOn 1000
+# exit LUXSim
+exit
